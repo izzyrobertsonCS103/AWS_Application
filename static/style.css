@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.header{
+    width: 100%;
+    height: 125px;
+    background-color: #404040;
+}
+.logo{
+    width: 250px;
+    height: 100px;
+    margin-top: 12.5px;
+    margin-left: 12.5px;
+    background-color: green;
+    filter: drop-shadow(10px 50px 100px rgba(255,255,255, 0.9));
+}
+section{
+    height: 87vh;
+    background-image: url('../static/CS205_background.jpg');
+    overflow: auto;
+    box-shadow: inset 0 0 0 1000px rgba(185, 217, 170, .5);
+}
+.container{
+    width: 450px;
+    margin: auto;
+    border: 1.5px solid;
+    margin-top: 200px;
+}
+.signup, .login{
+    width: 50%;
+    background: #fff;
+    float: right;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.signup-form, .login-form{
+    background: #fff;
+    padding: 40px;
+    clear: both;
+    width: 100%;
+    box-sizing: border-box;
+    height: 470px;
+}
+.login-form{
+    height: 340px;
+}
+.input{
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 25px;
+    border: 2px solid #e9eaea;
+    color: #3e3e40;
+    font-size: 14px;
+    outline: none;
+    transform: all 0.5s ease;
+}
+.input:focus{
+    border: 2px solid #34b3a0
+}
+.btn{
+    width: 100%;
+    background: #34b3a0;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}

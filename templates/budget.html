@@ -1,0 +1,65 @@
+<!doctype html>
+ <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+        <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0">
+         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+         <title>Budget Master</title>
+        <link rel="stylesheet" href="static\style02.css">
+    </head>
+    <body>
+    <div class="header">
+        <img src="static\CS205_logo.jpg" class="logo" alt="logo">
+        <div class="current_user">
+            <h1>
+                {{ current_user.f_name }} {{ current_user.l_name }}
+            </h1>
+        </div>
+        <a href="{{url_for('logout')}}"> <button type="button" class="logout" id="logout">LOG OUT</button></a>
+        <ul>
+            <li><a href="{{url_for('home')}}">Home</a></li>
+            <li><a href="{{url_for('income')}}">Income</a></li>
+            <li><a href="{{url_for('expenses')}}">Expense</a></li>
+            <li><a href="{{url_for('goals')}}">Goal</a></li>
+            <li><a class="active_page" href="{{url_for('budget')}}">Budget</a></li>
+        </ul>
+    </div>
+        <section>
+            <div class="add_income">
+            <form action="{{url_for('budget')}}" method="POST">
+                <label>Budget Amount: </label>
+                <label>$</label>
+                <input type="number" name="budget_amount" placeholder="$" required><br>
+                <label>Budget Length: </label>
+                <select id="category" name="budget_length">
+                    <option value="Daily">Daily</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                </select><br><br>
+                {% for mesg in get_flashed_messages() %}
+                    <h3>{{ mesg }}</h3>
+                {% endfor %}
+                <input class = "btn btn-default  btn-outline-success " type="submit" value="Add Budget">
+            </form>
+            </div>
+            <table class="table" style="position: absolute;">
+                <thead class="table-success">
+                    <tr>
+                        <th>Budget Number</th>
+                        <th>Budget Amount</th>
+                        <th>Budget Length</th>
+                        <th>Completed</th>
+                    </tr>
+                </thead>
+                    <tr>
+                        {% for budget in budget %}
+                        <td>{{ budget.id }}</td>
+                        <td>$ {{ budget.budget_amount }}</td>
+                        <td style="width:50%;">{{ budget.budget_length }}</td>
+                        <td><a href="/delete_budget/{{budget.id}}"> <button type="button" class="btn large btn-outline-danger">Clear</button></a></td>
+                    </tr>
+                    {% endfor %}
+            </table>
+        </section>
+    </body>

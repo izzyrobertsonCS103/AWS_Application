@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Budget Master</title>
+    <link rel="stylesheet" href="..\static\style.css">
+</head>
+<body>
+    <div class="header">
+        <img src="static\CS205_logo.jpg" class="logo" alt="logo">
+    </div>
+    <section>
+        <div class="container">
+            <div class="signup">Sign Up</div>
+            <div class="login">Login</div>
+            <div class="login-form">
+                <form action="{{ url_for('login')}}" method="POST">
+                    <input type="text" placeholder="Email Address" class="input" name="login_email" required><br>
+                    <input type="password" placeholder="Password" class="input" name="login_password" id="login_password" required><br>
+                    <input type="checkbox" onclick="myFunction()"> Show Password <br><br>
+                    {% for mesg in get_flashed_messages() %}
+                        <h3>{{ mesg }}</h3>
+                    {% endfor %}
+                    <input class = "btn btn-default  btn-outline-success " type="submit" value="Login">
+                </form>
+            </div>
+            <div class="signup-form">
+                <form action="{{ url_for('register')}}" method="POST">
+                    <input type="text" placeholder="Enter your Email Address" class="input" name="email" required><br>
+                    <input type="text" placeholder="Enter your First Name" class="input" name="first_name" required><br>
+                    <input type="text" placeholder="Enter your Last Name" class="input" name="last_name" required><br>
+                    <input type="text" placeholder="Enter your Password" class="input" name="password" required><br>
+                    <input class="btn btn-default  btn-outline-success" type="submit" value="Create Account">
+                </form>
+            </div>
+        </div>
+        {% for user in users %}
+                {{ user.id }}
+                {{ user.email }}
+                {{ user.f_name }}
+                {{ user.l_name }}
+            {% endfor %}
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src='static/script.js'></script>
+</body>

@@ -1,0 +1,105 @@
+<!doctype html>
+ <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+        <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0">
+         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+         <title>Budget Master</title>
+        <link rel="stylesheet" href="\static\style02.css">
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    </head>
+    <body>
+    <div class="header">
+        <img src="\static\CS205_logo.jpg" class="logo" alt="logo">
+        <div class="current_user">
+            <h1>
+                {{ current_user.f_name }} {{ current_user.l_name }}
+            </h1>
+        </div>
+        <a href="{{url_for('logout')}}"> <button type="button" class="logout" id="logout">LOG OUT</button></a>
+        <ul>
+            <li><a href="{{url_for('home')}}">Home</a></li>
+            <li><a class="active_page" href="{{url_for('income')}}">Income</a></li>
+            <li><a href="{{url_for('expenses')}}">Expense</a></li>
+            <li><a href="{{url_for('goals')}}">Goal</a></li>
+            <li><a href="{{url_for('budget')}}">Budget</a></li>
+        </ul>
+    </div>
+    <section>
+        <div class="add_income">
+            <form action="/update_income/{{income_to_update.id}}" method="POST">
+                <label>Income Number: {{income_to_update.id}}</label><br><br><br>
+                <label>Income Amount: </label>
+                <label>$</label>
+                <input type="number" name="income_amount" placeholder="$" value="{{income_to_update.income_amount}}"><br>
+                <label>Income Source: </label>
+                <select id="category" name="income_source">
+                    <option>{{income_to_update.income_source}}</option>
+                    <option value="Work">Work</option>
+                    <option value="Friend">Friend</option>
+                    <option value="Family">Family</option>
+                </select><br>
+                <input class = "btn btn-default  btn-outline-success " type="submit" value="Update">
+            </form>
+        </div>
+        <table class="table">
+            <thead class="table-success">
+                <tr>
+                    <th>Week Number</th>
+                    <th>Income Amount</th>
+                    <th>Income Source</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+                <tr>
+                    {% for income in income %}
+                    <td>{{ income.id }}</td>
+                    <td>$ {{ income.income_amount }}</td>
+                    <td>{{ income.income_source }}</td>
+                    <td><a href="/update_income/{{income.id}}"> <button type="button" class="btn large btn-outline-success">Update</button></a></td>
+                    <td><a href="/delete_income/{{income.id}}"> <button type="button" class="btn large btn-outline-danger">Delete</button></a></td>
+                </tr>
+        {% endfor %}
+            <canvas id="myChart" style="border: 3px solid black; height: 500px; width: 100%; max-width: 1200px; background: white;float: left; margin: 25px; position: relative;"></canvas>
+        </table>
+<script>
+var xValues = [{% for income in income %} {{ income.id }}, {% endfor %}];
+var yValues = [{% for income in income %} {{ income.income_amount }}, {% endfor %}];
+
+new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "#04AA6D",
+      borderColor: "rgba(0,0,255,0.1)",
+      data: yValues
+    }]
+  },
+  options: {
+      title: {
+          display: true,
+          text: 'INCOME BAR GRAPH'
+        },
+      legend: {display: false},
+      scales: {
+      yAxes: [{ticks: {min: 0, max: 100}, display: true,
+          scaleLabel: {
+            display: true,
+            labelString: '$Dollars$'
+          }}],
+      xAxes: [{ticks: {min: 0, max: 100}, display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Income Number'
+          }}],
+    }
+  }
+});
+</script>
+    </section>
+    </body>
